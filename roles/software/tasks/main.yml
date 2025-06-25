@@ -8,8 +8,6 @@
       - unzip
       - wget
       - curl
-      #- jq
-      #- samba
       - ufw
     state: present
     update_cache: yes

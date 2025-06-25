@@ -1,0 +1,14 @@
+---
+
+- name: Ensure /var/www/html directory exists
+  ansible.builtin.file:
+    path: /var/www/html
+    state: directory
+    mode: '0755'
+
+- name: Copy Website
+  ansible.builtin.copy:
+    src: main/
+    dest: /var/www/html/
+    mode: '0644'
+
