@@ -1,6 +1,6 @@
 - name: Wait for NPM to be ready
   ansible.builtin.uri:
-    url: http://192.168.2.3:81
+    url: http://localhost:81
     method: GET
     status_code: 200
   register: npm_up
