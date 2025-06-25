@@ -3,6 +3,8 @@
 if command -v docker &> /dev/null; then
     docker --version
 else
+
+    # System vorbereiten
     sudo apt-get update
     sudo apt-get install -y ca-certificates curl gnupg lsb-release
 
@@ -21,3 +23,4 @@ else
 fi
 
 sudo usermod -aG docker "${USER}"
+
