@@ -1,0 +1,26 @@
+---
+- name: Install Proxy
+  ansible.builtin.debug:
+    msg: "installing Proxy"
+
+- name: Copy docker-compose.yaml file
+  ansible.builtin.copy:
+    src: docker-compose.yaml
+    dest: /root/docker-compose.yaml
+    mode: '0755'
+
+- name: Ensure /var/www directory exists
+  ansible.builtin.file:
+    path: /var/www
+    state: directory
+    mode: '0755'
+
+- name: Copy index.html
+  ansible.builtin.copy:
+    src: index.html
+    dest: /var/www/index.html
+    mode: '0644'
+
+- name: start docker compose with config
+  ansible.builtin.command:
+    cmd: docker compose -f /root/docker-compose.yaml up -d

@@ -1,0 +1,50 @@
+- name: Wait for NPM to be ready
+  ansible.builtin.uri:
+    url: http://192.168.2.3:81
+    method: GET
+    status_code: 200
+  register: npm_up
+  retries: 10
+  delay: 5
+  until: npm_up.status == 200
+
+- name: Login to NPM
+  ansible.builtin.uri:
+    url: http://localhost:81/api/tokens
+    method: POST
+    body_format: json
+    headers:
+      Content-Type: application/json
+    body:
+      identity: "admin@example.com"
+      secret: "changeme"
+    return_content: yes
+  register: npm_auth
+
+- name: Create proxy host
+  ansible.builtin.uri:
+    url: http://localhost:81/api/nginx/proxy-hosts
+    method: POST
+    body_format: json
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ npm_auth.json.token }}"
+    body:
+      domain_names: ["dummy.local"]
+      forward_scheme: "http"
+      forward_host: "apache"
+      forward_port: 80
+      access_list_id: null
+      certificate_id: null
+      ssl_forced: false
+      caching_enabled: false
+      block_exploits: true
+      advanced_config: ""
+      locations: []
+      allow_websocket_upgrade: false
+      http2_support: false
+      hsts_enabled: false
+      hsts_subdomains: false
+      locations: []
+    status_code: 200,201
+

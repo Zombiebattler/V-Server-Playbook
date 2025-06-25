@@ -1,0 +1,31 @@
+---
+- name: Basic Software
+  ansible.builtin.apt:
+    name:
+      - git
+      - screen
+      - zip
+      - unzip
+      - wget
+      - curl
+      #- jq
+      #- samba
+      - ufw
+    state: present
+    update_cache: yes
+    
+- name: Copy install script
+  ansible.builtin.copy:
+    src: software
+    dest: /root/
+    mode: '0755'
+
+- name: start installer
+  ansible.builtin.command:
+    cmd: bash /root/software
+
+- name: remove installer script
+  ansible.builtin.file:
+    path: /root/installer
+    state: absent
+

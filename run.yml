@@ -1,0 +1,9 @@
+---
+- name: 'Conf'
+  become: true
+  hosts: webserver
+
+  roles: 
+    - role: software
+    - role: docker
+    - role: config
