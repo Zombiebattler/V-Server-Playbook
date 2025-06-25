@@ -12,7 +12,7 @@ Use this setup to serve your website behind a user-friendly proxy manager.
 
 ### 1. Add Your Website
 
-Place your site inside:
+Place your Website inside:
 
 `roles/website/files/main/`
 
