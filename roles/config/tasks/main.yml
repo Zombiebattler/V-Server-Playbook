@@ -1,12 +1,6 @@
-- name: Wait for NPM to be ready
-  ansible.builtin.uri:
-    url: http://localhost:81
-    method: GET
-    status_code: 200
-  register: npm_up
-  retries: 10
-  delay: 5
-  until: npm_up.status == 200
+- name: Wait for NPM to be ready (15 seconds)
+  ansible.builtin.pause:
+    seconds: 15
 
 - name: Login to NPM
   ansible.builtin.uri:
