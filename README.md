@@ -18,7 +18,7 @@ Place your site inside:
 
 Make sure your site includes an `index.html` or an entry file.
 
-### 2. Configure Your Domain
+### 2. Configure Your Domain (Optional)
 
 Open the file:
 
