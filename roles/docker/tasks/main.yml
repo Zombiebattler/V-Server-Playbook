@@ -1,8 +1,4 @@
 ---
-- name: Install Proxy
-  ansible.builtin.debug:
-    msg: "installing Proxy"
-
 - name: Copy docker-compose.yaml file
   ansible.builtin.copy:
     src: docker-compose.yaml
