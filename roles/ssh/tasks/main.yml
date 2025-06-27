@@ -1,4 +1,4 @@
-- name: Deaktiviere Root-Login
+- name: Disable root login
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^#?PermitRootLogin'
@@ -6,7 +6,7 @@
     state: present
     backrefs: yes
 
-- name: Deaktiviere Passwort-Authentifizierung
+- name: Disable password authentication
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^#?PasswordAuthentication'
@@ -14,7 +14,7 @@
     state: present
     backrefs: yes
 
-- name: Deaktiviere ChallengeResponseAuthentication (zusätzliche Sicherheit)
+- name: Disable ChallengeResponseAuthentication
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^#?ChallengeResponseAuthentication'
@@ -22,7 +22,7 @@
     state: present
     backrefs: yes
 
-- name: Stelle sicher, dass PublicKeyAuthentication aktiv ist
+- name: Ensure PublicKeyAuthentication is enabled
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^#?PubkeyAuthentication'
@@ -30,8 +30,7 @@
     state: present
     backrefs: yes
 
-- name: SSH neu starten, damit Änderungen wirksam werden
+- name: Restart SSH to apply changes
   service:
     name: ssh
     state: restarted
-
