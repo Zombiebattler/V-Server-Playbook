@@ -1,6 +1,20 @@
-- name: Wait for NPM to be ready (15 seconds)
-  ansible.builtin.pause:
-    seconds: 15
+- name: Warten, bis NPM erreichbar ist und Login erfolgreich
+  ansible.builtin.uri:
+    url: http://localhost:81/api/tokens
+    method: POST
+    body_format: json
+    headers:
+      Content-Type: application/json
+    body:
+      identity: "admin@example.com"
+      secret: "changeme"
+    return_content: yes
+  register: npm_auth
+  retries: 3
+  delay: 10
+  until: npm_auth.status == 200
+  ignore_errors: false
+
 
 - name: Login to NPM
   ansible.builtin.uri:
