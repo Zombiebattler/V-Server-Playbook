@@ -1,41 +1,38 @@
-- name: Stelle sicher, dass UFW installiert ist
+- name: Ensure UFW is installed
   ansible.builtin.package:
     name: ufw
     state: present
 
-- name: Erlaube SSH (Port 22)
+- name: Allow SSH (Port 22)
   community.general.ufw:
     rule: allow
     port: 22
     proto: tcp
 
-- name: Erlaube HTTP (Port 80)
+- name: Allow HTTP (Port 80)
   community.general.ufw:
     rule: allow
     port: 80
     proto: tcp
 
-- name: Erlaube HTTPS (Port 443)
+- name: Allow HTTPS (Port 443)
   community.general.ufw:
     rule: allow
     port: 443
     proto: tcp
 
-- name: Erlaube Nginx-Port (Port 81)
+- name: Allow Nginx port (Port 81)
   community.general.ufw:
     rule: allow
     port: 81
     proto: tcp
 
-- name: Aktiviere UFW (nur wenn nicht bereits aktiviert)
+- name: Enable UFW (only if not already enabled)
   community.general.ufw:
     state: enabled
 
-
-- name: Installiere SSH Key für remoteuser
+- name: Install SSH key for remote user
   ansible.posix.authorized_key:
     user: leon
     state: present
     key: "{{ lookup('file', 'id_ansible.pub') }}"
-
-
